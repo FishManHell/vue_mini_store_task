@@ -1,1 +1,1 @@
-# mini_ecommerce_task
+# vue_mini_store_task
