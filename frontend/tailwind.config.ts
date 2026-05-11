@@ -1,9 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from 'tailwindcss'
+
 export default {
-  content: [],
+  darkMode: 'class',
+  content: ['./index.html', './src/**/*.{vue,ts,tsx,js,jsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter Variable', 'system-ui', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
-}
-
+} satisfies Config
