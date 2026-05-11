@@ -1,0 +1,104 @@
+# --- Environment ---
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+!.env.*.example
+
+# --- Logs ---
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- OS ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --- IDE / Editors ---
+.idea/
+.vscode/
+!.vscode/extensions.json
+*.swp
+*.swo
+*.sublime-*
+.fleet/
+
+# --- Node ---
+node_modules/
+dist/
+dist-ssr/
+*.tsbuildinfo
+.eslintcache
+.npm/
+.yarn/
+.pnpm-store/
+
+# --- Vite / Vitest ---
+*.timestamp-*-*.mjs
+__screenshots__/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+wheels/
+share/python-wheels/
+MANIFEST
+
+# --- Python virtualenvs ---
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# --- Python tooling caches ---
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyre/
+.pytype/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+
+# --- FastAPI / Uvicorn dev ---
+.uvicorn.pid
+
+# --- Docker ---
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# --- Claude Code skill (kept local, not deployed) ---
+.claude/
+
+# --- Misc ---
+*.local
+*.bak
+*.tmp
+*.orig
