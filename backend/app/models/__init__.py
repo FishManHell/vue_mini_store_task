@@ -5,6 +5,7 @@ from app.models.product import (
     ProductDetails,
     ProductListItem,
     Review,
+    SortOrder,
 )
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "ProductDetails",
     "ProductListItem",
     "Review",
+    "SortOrder",
 ]

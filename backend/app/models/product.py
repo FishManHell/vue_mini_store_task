@@ -37,3 +37,10 @@ class ProductListItem(ProductBase):
 class ProductDetails(ProductListItem):
     long_description: str
     reviews: list[Review] = Field(default_factory=list)
+
+
+class SortOrder(StrEnum):
+    NAME_ASC = "name-asc"
+    NAME_DESC = "name-desc"
+    PRICE_ASC = "price-asc"
+    PRICE_DESC = "price-desc"
