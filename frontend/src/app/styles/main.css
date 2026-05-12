@@ -5,18 +5,42 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-background: 250 250 250;
+    --color-surface: 255 255 255;
+    --color-surface-hover: 244 244 245;
+    --color-border: 228 228 231;
+    --color-primary: 24 24 27;
+    --color-secondary: 82 82 91;
+    --color-muted: 161 161 170;
+    --color-accent: 99 102 241;
+    --color-accent-hover: 79 70 229;
+    --color-accent-soft: 238 242 255;
+    --color-success: 16 185 129;
+    --color-error: 239 68 68;
+    --color-warning: 245 158 11;
+    color-scheme: light;
+  }
+
+  .dark {
+    --color-background: 9 9 11;
+    --color-surface: 24 24 27;
+    --color-surface-hover: 39 39 42;
+    --color-border: 39 39 42;
+    --color-primary: 250 250 250;
+    --color-secondary: 161 161 170;
+    --color-muted: 113 113 122;
+    --color-accent-soft: 49 46 129;
+    color-scheme: dark;
+  }
+
   html {
     font-family: 'Inter Variable', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   body {
-    @apply bg-zinc-50 text-zinc-900;
-  }
-
-  html.dark body {
-    @apply bg-zinc-950 text-zinc-50;
+    @apply bg-background text-primary;
   }
 }

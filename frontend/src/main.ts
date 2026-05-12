@@ -6,7 +6,10 @@ import PrimeVue from 'primevue/config';
 import { pinia } from '@/app/pinia'
 import App from './app/App.vue'
 import {router} from "@/app/router";
+import { applyInitialTheme } from '@/shared/lib/theme'
 import '@/app/styles/main.css'
+
+applyInitialTheme()
 
 const app = createApp(App)
 app.use(PrimeVue, {
