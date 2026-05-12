@@ -1,58 +1,82 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { ProductListItem } from '@/entities/product'
-import type { CartItem } from './types'
+import { http } from '@/shared/api'
+import type { CartItem, CartResponse } from './types'
+
+export type CartError = 'unknown'
 
 export const useCartStore = defineStore('cart', () => {
   const items = ref<CartItem[]>([])
-
-  const totalCount = computed(() =>
-    items.value.reduce((sum, item) => sum + item.quantity, 0),
-  )
-
-  const totalPrice = computed(() =>
-    items.value.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0),
-  )
+  const totalCount = ref(0)
+  const totalPrice = ref('0.00')
+  const isLoading = ref(false)
+  const isLoaded = ref(false)
+  const error = ref<CartError | null>(null)
 
   const isEmpty = computed(() => items.value.length === 0)
 
-  function addItem(product: ProductListItem, quantity = 1) {
-    const existing = items.value.find((item) => item.id === product.id)
-    if (existing) {
-      existing.quantity += quantity
-      return
+  function applyResponse(data: CartResponse) {
+    items.value = data.items
+    totalCount.value = data.totalCount
+    totalPrice.value = data.totalPrice
+  }
+
+  function applyEmpty() {
+    items.value = []
+    totalCount.value = 0
+    totalPrice.value = '0.00'
+  }
+
+  async function run(fn: () => Promise<void>) {
+    isLoading.value = true
+    error.value = null
+    try {
+      await fn()
+    } catch {
+      error.value = 'unknown'
+    } finally {
+      isLoading.value = false
     }
-    items.value.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      thumbnailUrl: product.thumbnailUrl,
-      shortDescription: product.shortDescription,
-      category: product.category,
-      quantity,
+  }
+
+  async function load() {
+    await run(async () => {
+      const { data } = await http.get<CartResponse>('/cart')
+      applyResponse(data)
+      isLoaded.value = true
     })
   }
 
-  function removeItem(productId: string) {
-    const index = items.value.findIndex((item) => item.id === productId)
-    if (index !== -1) {
-      items.value.splice(index, 1)
-    }
+  async function addItem(productId: string, quantity = 1) {
+    await run(async () => {
+      const { data } = await http.post<CartResponse>('/cart/items', { productId, quantity })
+      applyResponse(data)
+    })
   }
 
-  function updateQuantity(productId: string, quantity: number) {
+  async function updateQuantity(productId: string, quantity: number) {
     if (quantity <= 0) {
-      removeItem(productId)
+      await removeItem(productId)
       return
     }
-    const existing = items.value.find((item) => item.id === productId)
-    if (existing) {
-      existing.quantity = quantity
-    }
+    await run(async () => {
+      const { data } = await http.patch<CartResponse>(`/cart/items/${productId}`, { quantity })
+      applyResponse(data)
+    })
   }
 
-  function clear() {
-    items.value = []
+  async function removeItem(productId: string) {
+    await run(async () => {
+      const { data } = await http.delete<CartResponse>(`/cart/items/${productId}`)
+      applyResponse(data)
+    })
+  }
+
+  async function clear() {
+    await run(async () => {
+      await http.delete('/cart')
+      applyEmpty()
+    })
   }
 
   return {
@@ -60,9 +84,13 @@ export const useCartStore = defineStore('cart', () => {
     totalCount,
     totalPrice,
     isEmpty,
+    isLoading,
+    isLoaded,
+    error,
+    load,
     addItem,
-    removeItem,
     updateQuantity,
+    removeItem,
     clear,
   }
 })

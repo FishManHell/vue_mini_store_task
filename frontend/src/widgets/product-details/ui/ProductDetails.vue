@@ -19,8 +19,17 @@ const { product, isLoading, error } = useProduct(idRef)
 const cart = useCartStore()
 const toast = useToast()
 
-function handleAddToCart(item: ProductDetails) {
-  cart.addItem(item)
+async function handleAddToCart(item: ProductDetails) {
+  await cart.addItem(item.id)
+  if (cart.error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Could not add to cart',
+      detail: 'Please try again.',
+      life: 3000,
+    })
+    return
+  }
   toast.add({
     severity: 'success',
     summary: 'Added to cart',

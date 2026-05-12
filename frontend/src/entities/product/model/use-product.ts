@@ -1,8 +1,7 @@
-import { ref, toValue, watch, type MaybeRefOrGetter } from 'vue'
-import { mockProducts } from './mock-data'
+import { onUnmounted, ref, toValue, watch, type MaybeRefOrGetter } from 'vue'
+import axios from 'axios'
+import { http } from '@/shared/api'
 import type { ProductDetails } from './types'
-
-const MOCK_DELAY_MS = 500
 
 export type ProductError = 'not_found' | 'unknown'
 
@@ -11,26 +10,38 @@ export function useProduct(id: MaybeRefOrGetter<string>) {
   const isLoading = ref(true)
   const error = ref<ProductError | null>(null)
 
+  let controller: AbortController | null = null
+
   async function load() {
+    controller?.abort()
+    controller = new AbortController()
+    const signal = controller.signal
+
     isLoading.value = true
     error.value = null
     product.value = null
 
-    await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY_MS))
-
-    const currentId = toValue(id)
-    const found = mockProducts.find((p) => p.id === currentId)
-
-    if (!found) {
-      error.value = 'not_found'
-    } else {
-      product.value = found
+    try {
+      const { data } = await http.get<ProductDetails>(`/products/${toValue(id)}`, {
+        signal,
+      })
+      if (signal.aborted) return
+      product.value = data
+    } catch (e) {
+      if (axios.isCancel(e) || signal.aborted) return
+      if (axios.isAxiosError(e) && e.response?.status === 404) {
+        error.value = 'not_found'
+      } else {
+        error.value = 'unknown'
+      }
+    } finally {
+      if (!signal.aborted) isLoading.value = false
     }
-
-    isLoading.value = false
   }
 
   watch(() => toValue(id), load, { immediate: true })
+
+  onUnmounted(() => controller?.abort())
 
   return { product, isLoading, error }
 }

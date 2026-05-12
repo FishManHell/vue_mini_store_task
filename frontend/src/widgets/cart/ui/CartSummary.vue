@@ -5,7 +5,7 @@ import { styles } from './CartSummary.styles'
 
 interface Props {
   itemCount: number
-  total: number
+  total: string
 }
 
 defineProps<Props>()
@@ -27,7 +27,7 @@ defineEmits<{
       </div>
       <div :class="styles.row">
         <span :class="styles.rowLabel">Subtotal</span>
-        <span :class="styles.rowValue">{{ formatPrice(String(total)) }}</span>
+        <span :class="styles.rowValue">{{ formatPrice(total) }}</span>
       </div>
     </div>
 
@@ -35,7 +35,7 @@ defineEmits<{
 
     <div :class="styles.totalRow">
       <span :class="styles.totalLabel">Total</span>
-      <span :class="styles.totalValue">{{ formatPrice(String(total)) }}</span>
+      <span :class="styles.totalValue">{{ formatPrice(total) }}</span>
     </div>
 
     <button type="button" :class="styles.checkout" @click="$emit('checkout')">

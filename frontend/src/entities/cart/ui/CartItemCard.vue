@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useToast } from 'primevue/usetoast'
 import { Minus, Plus, Trash2 } from 'lucide-vue-next'
 import { AppRoute } from '@/shared/config/router'
 import { formatCategory, formatPrice } from '@/entities/product'
@@ -15,22 +16,35 @@ interface Props {
 const props = defineProps<Props>()
 
 const cart = useCartStore()
+const toast = useToast()
 
-const lineTotal = computed(() => Number(props.item.price) * props.item.quantity)
 const canDecrement = computed(() => props.item.quantity > 1)
 
-function decrement() {
-  if (canDecrement.value) {
-    cart.updateQuantity(props.item.id, props.item.quantity - 1)
+function notifyIfError() {
+  if (cart.error) {
+    toast.add({
+      severity: 'error',
+      summary: 'Could not update cart',
+      detail: 'Please try again.',
+      life: 3000,
+    })
   }
 }
 
-function increment() {
-  cart.updateQuantity(props.item.id, props.item.quantity + 1)
+async function decrement() {
+  if (!canDecrement.value) return
+  await cart.updateQuantity(props.item.id, props.item.quantity - 1)
+  notifyIfError()
 }
 
-function remove() {
-  cart.removeItem(props.item.id)
+async function increment() {
+  await cart.updateQuantity(props.item.id, props.item.quantity + 1)
+  notifyIfError()
+}
+
+async function remove() {
+  await cart.removeItem(props.item.id)
+  notifyIfError()
 }
 </script>
 
@@ -78,7 +92,7 @@ function remove() {
           </button>
         </div>
 
-        <span :class="styles.lineTotal">{{ formatPrice(String(lineTotal)) }}</span>
+        <span :class="styles.lineTotal">{{ formatPrice(props.item.lineTotal) }}</span>
 
         <button
           type="button"

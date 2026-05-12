@@ -15,14 +15,27 @@ const { items, isEmpty, totalCount, totalPrice } = storeToRefs(cart)
 const toast = useToast()
 const confirm = useConfirm()
 
+function showError(summary: string) {
+  toast.add({
+    severity: 'error',
+    summary,
+    detail: 'Please try again.',
+    life: 3000,
+  })
+}
+
 function handleCheckout() {
   confirm.require({
     header: 'Place order',
-    message: `Place order for ${formatPrice(String(totalPrice.value))}?`,
+    message: `Place order for ${formatPrice(totalPrice.value)}?`,
     acceptLabel: 'Place order',
     rejectLabel: 'Cancel',
-    accept: () => {
-      cart.clear()
+    accept: async () => {
+      await cart.clear()
+      if (cart.error) {
+        showError('Could not place order')
+        return
+      }
       toast.add({
         severity: 'success',
         summary: 'Order placed',
@@ -40,8 +53,12 @@ function handleClear() {
     acceptLabel: 'Clear',
     rejectLabel: 'Cancel',
     acceptClass: 'p-button-danger',
-    accept: () => {
-      cart.clear()
+    accept: async () => {
+      await cart.clear()
+      if (cart.error) {
+        showError('Could not clear cart')
+        return
+      }
       toast.add({
         severity: 'info',
         summary: 'Cart cleared',

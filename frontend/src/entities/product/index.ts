@@ -8,7 +8,6 @@ export type {
   ProductFilters,
 } from './model/types'
 export { CATEGORY, SORT_ORDER } from './model/types'
-export { mockProducts } from './model/mock-data'
 export { useProducts } from './model/use-products'
 export { useProduct, type ProductError } from './model/use-product'
 export { formatCategory, formatPrice } from './lib/format'
