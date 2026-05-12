@@ -4,24 +4,37 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
-from app.repositories import ProductRepository
-from app.routers import health, products
-from app.services import ProductService
+from app.core.redis import create_redis_client
+from app.repositories import CartRepository, ProductRepository
+from app.routers import cart, health, products
+from app.services import CartService, ProductService
 
 settings = get_settings()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    repository = ProductRepository.from_json_file()
-    app.state.product_repository = repository
-    app.state.product_service = ProductService(repository)
-    yield
+    # Products — in-memory catalog
+    product_repository = ProductRepository.from_json_file()
+    product_service = ProductService(product_repository)
+    app.state.product_repository = product_repository
+    app.state.product_service = product_service
+
+    # Cart — Redis-backed
+    redis = create_redis_client()
+    cart_repository = CartRepository(redis, ttl_seconds=settings.cart_ttl_seconds)
+    app.state.redis = redis
+    app.state.cart_service = CartService(cart_repository, product_service)
+
+    try:
+        yield
+    finally:
+        await redis.aclose()
 
 
 app = FastAPI(
     title=settings.app_name,
-    version="0.1.2",
+    version="0.1.3",
     debug=settings.debug,
     lifespan=lifespan,
 )
@@ -36,3 +49,4 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(products.router)
+app.include_router(cart.router)
