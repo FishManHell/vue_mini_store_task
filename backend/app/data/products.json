@@ -1,0 +1,174 @@
+[
+  {
+    "id": "4af8ea52-5205-4738-929c-b9e03dd6ab6f",
+    "name": "The Pragmatic Programmer",
+    "shortDescription": "A timeless guide to mastering the craft of software development.",
+    "longDescription": "Written by Andrew Hunt and David Thomas, this twentieth-anniversary edition revisits the practices that have shaped modern software engineering. Topics range from automation and the DRY principle to defensive programming and pragmatic estimation. Every chapter is grounded in concrete examples you can apply on Monday morning.",
+    "price": "29.99",
+    "thumbnailUrl": "https://picsum.photos/seed/product-1/600/600",
+    "category": "ebook",
+    "reviews": [
+      {
+        "id": "a3c04152-9292-4767-bc8f-f14ffd11a8fb",
+        "author": "Marta L.",
+        "rating": 5,
+        "comment": "A must-read regardless of how long you have been writing code.",
+        "createdAt": "2025-08-14"
+      },
+      {
+        "id": "b7325696-bebd-448e-a480-bf53e33e0e0e",
+        "author": "Daniel P.",
+        "rating": 4,
+        "comment": "Some advice feels dated, but the core principles are evergreen.",
+        "createdAt": "2025-11-02"
+      }
+    ]
+  },
+  {
+    "id": "52728508-38e8-4102-855c-0557367dae5c",
+    "name": "Designing Data-Intensive Applications",
+    "shortDescription": "Deep dive into the architecture of reliable, scalable, and maintainable systems.",
+    "longDescription": "Martin Kleppmann unpacks the storage engines, replication strategies and consistency models behind every serious backend system. Diagrams illustrate trade-offs between leader-based replication, multi-leader topologies and CRDTs. Ideal for engineers moving from app-level work into distributed systems.",
+    "price": "39.99",
+    "thumbnailUrl": "https://picsum.photos/seed/product-2/600/600",
+    "category": "ebook",
+    "reviews": [
+      {
+        "id": "4902fcbb-2f7f-4914-9096-290ae907b003",
+        "author": "Igor V.",
+        "rating": 5,
+        "comment": "The clearest explanation of consensus and replication I have ever read.",
+        "createdAt": "2025-09-10"
+      }
+    ]
+  },
+  {
+    "id": "407bf6e1-0027-44ad-b710-b37a0cc0d1fe",
+    "name": "Sublime Text — Personal License",
+    "shortDescription": "Sophisticated text editor for code, markup, and prose. Lifetime license.",
+    "longDescription": "A one-time purchase that unlocks Sublime Text on macOS, Windows and Linux for a single user. Includes three years of free updates, multi-caret editing, project-wide goto, and a sprawling plugin ecosystem powered by Python. Perfect for engineers who prefer a snappy native editor over electron alternatives.",
+    "price": "99.00",
+    "thumbnailUrl": "https://picsum.photos/seed/product-3/600/600",
+    "category": "software_license",
+    "reviews": [
+      {
+        "id": "47079e5a-cabb-4de0-9123-f12af611bbd8",
+        "author": "Tara S.",
+        "rating": 5,
+        "comment": "Still the fastest editor on my machine. Worth every cent.",
+        "createdAt": "2025-07-21"
+      },
+      {
+        "id": "ca53cb69-b2ef-404c-b3de-0969ca81af5f",
+        "author": "Ben K.",
+        "rating": 3,
+        "comment": "Powerful, but I missed proper LSP support out of the box.",
+        "createdAt": "2025-10-30"
+      }
+    ]
+  },
+  {
+    "id": "dca8de31-260d-4d60-a4fd-7bbf46a34a03",
+    "name": "Affinity Designer 2",
+    "shortDescription": "Professional vector and raster design tool. One-time purchase, no subscription.",
+    "longDescription": "Affinity Designer 2 brings non-destructive editing, a refined contour tool and live shape primitives into a single performant package. Switch between vector and pixel personas without leaving your document, and export complete artboards to PDF, SVG or PNG with one click. Great for product designers tired of monthly fees.",
+    "price": "69.99",
+    "thumbnailUrl": "https://picsum.photos/seed/product-4/600/600",
+    "category": "software_license",
+    "reviews": [
+      {
+        "id": "6e110ff4-e25d-43c9-92c0-bcb0c29de2b8",
+        "author": "Olha M.",
+        "rating": 4,
+        "comment": "Feature parity with Illustrator for 90% of my work.",
+        "createdAt": "2025-12-05"
+      }
+    ]
+  },
+  {
+    "id": "46e93f12-ae1f-4f46-be91-0326b9a567b5",
+    "name": "Advanced Vue 3 & Composition API",
+    "shortDescription": "Build production-grade apps with Vue 3, TypeScript, and modern patterns.",
+    "longDescription": "Twenty-two hours of video plus a companion repository covering composables, render functions, Pinia state design, server-side rendering with Nuxt 3, and Vitest-driven component testing. Each module ends with a code review walkthrough so you can compare your solution against the instructor's.",
+    "price": "149.00",
+    "thumbnailUrl": "https://picsum.photos/seed/product-5/600/600",
+    "category": "online_course",
+    "reviews": [
+      {
+        "id": "c78b753e-99e0-4a92-97f0-b547abdf9661",
+        "author": "Pavel N.",
+        "rating": 5,
+        "comment": "The composables module alone justifies the price.",
+        "createdAt": "2025-08-29"
+      },
+      {
+        "id": "37555536-f869-43d7-8bd0-6559ff631de0",
+        "author": "Sofia R.",
+        "rating": 5,
+        "comment": "Finally a course that takes TypeScript seriously.",
+        "createdAt": "2025-11-19"
+      }
+    ]
+  },
+  {
+    "id": "c14539c2-7960-41f9-9a3f-240ab23899ba",
+    "name": "Mastering TypeScript Fundamentals",
+    "shortDescription": "From basics to advanced types — full course with hands-on exercises.",
+    "longDescription": "Start from primitives and finish in conditional, mapped and template literal types. The course is structured as forty short lessons, each followed by a graded exercise checked by the embedded type-level test runner. Bonus chapter covers practical declaration-file authoring for untyped npm packages.",
+    "price": "89.00",
+    "thumbnailUrl": "https://picsum.photos/seed/product-6/600/600",
+    "category": "online_course",
+    "reviews": [
+      {
+        "id": "77a05d7a-5ea9-46ea-9417-b07b5dcbb7bb",
+        "author": "Anton G.",
+        "rating": 4,
+        "comment": "Solid intro. The advanced types chapter could be longer.",
+        "createdAt": "2025-09-22"
+      }
+    ]
+  },
+  {
+    "id": "700a2c4e-470f-4b6c-9e51-1cd22ded6382",
+    "name": "SaaS Landing Page Template",
+    "shortDescription": "Production-ready Tailwind landing page with 12 sections and dark mode.",
+    "longDescription": "A Vue 3 + Tailwind v3 starter laid out around twelve composable sections — hero, feature grid, pricing, testimonials, FAQ and more. Dark mode is wired through a single class on the html element. Includes a Figma source file matching the implementation pixel-for-pixel.",
+    "price": "39.00",
+    "thumbnailUrl": "https://picsum.photos/seed/product-7/600/600",
+    "category": "template",
+    "reviews": [
+      {
+        "id": "1bd5d6b2-e1e2-4d60-941a-ffa47e7bccc1",
+        "author": "Lena O.",
+        "rating": 5,
+        "comment": "Shipped our launch page in a weekend thanks to this.",
+        "createdAt": "2025-10-08"
+      },
+      {
+        "id": "d6a00754-4ad6-4fad-80e8-a18ef33e8b72",
+        "author": "Mike J.",
+        "rating": 4,
+        "comment": "Lovely defaults, but the pricing section needed a custom rebuild.",
+        "createdAt": "2025-12-14"
+      }
+    ]
+  },
+  {
+    "id": "5bb932b9-3836-4cf4-bc4d-7722c805e425",
+    "name": "Notion OKR Tracker",
+    "shortDescription": "Goal-tracking dashboard for teams. Quarterly OKRs with progress views.",
+    "longDescription": "A Notion template purpose-built for teams running quarterly OKRs. Includes a relational schema linking objectives, key results and weekly check-ins, plus pre-built filtered views for leads, IC contributors and exec readouts. Comes with a one-page rollout guide.",
+    "price": "19.00",
+    "thumbnailUrl": "https://picsum.photos/seed/product-8/600/600",
+    "category": "template",
+    "reviews": [
+      {
+        "id": "4b1b9de5-df99-41ff-89a9-c63db47f6490",
+        "author": "Nadia P.",
+        "rating": 4,
+        "comment": "Replaced three spreadsheets and our quarterly review meeting agenda.",
+        "createdAt": "2025-11-26"
+      }
+    ]
+  }
+]
