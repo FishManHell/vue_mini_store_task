@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+
+# Virtual env — installed fresh inside image
+.venv/
+
+# Env / secrets
+.env
+
+# VCS
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Not needed in runtime image
+README.md
+Dockerfile
+.dockerignore
+tests/

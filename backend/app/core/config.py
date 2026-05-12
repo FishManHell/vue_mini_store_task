@@ -1,7 +1,8 @@
 from functools import lru_cache
+from typing import Annotated
 
 from pydantic import field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -15,7 +16,9 @@ class Settings(BaseSettings):
     debug: bool = False
     log_level: str = "INFO"
 
-    cors_origins: list[str] = [
+    # NoDecode disables pydantic-settings' default JSON parsing for list fields,
+    # letting the validator below accept a comma-separated env string.
+    cors_origins: Annotated[list[str], NoDecode] = [
         "http://localhost:5173",
         "http://localhost:4173",
     ]
