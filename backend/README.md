@@ -82,6 +82,7 @@ backend/
 ├── pyproject.toml            uv-managed dependencies + ruff/pytest config
 ├── uv.lock                   pinned versions (commit this)
 ├── .env.example              template for local .env
+├── tests/                    pytest suite (product_service, cart_service)
 └── app/
     ├── core/
     │   ├── config.py         Pydantic Settings (env-driven)
@@ -104,6 +105,21 @@ backend/
     ├── data/
     │   └── products.json     8 products, UUID ids, camelCase keys
     └── main.py               FastAPI app, CORS, lifespan, router wiring
+```
+
+## Tests
+
+Pytest with `asyncio_mode = "auto"` (see `[tool.pytest.ini_options]` in
+`pyproject.toml`). Service-level unit tests, no Redis or HTTP layer needed:
+
+- **`tests/test_product_service.py`** — filter (search / category), sort
+  (name/price asc & desc), combined filters, blank-search guard.
+- **`tests/test_cart_service.py`** — quantity merging, clamp at
+  `MAX_QUANTITY_PER_ITEM`, missing-product error, removal totals. Uses an
+  in-memory `FakeCartRepository` that mirrors the real Redis contract.
+
+```bash
+uv run pytest -v
 ```
 
 ## Configuration

@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {onUnmounted, ref, watch} from 'vue'
+import { ref, watch } from 'vue'
 import Select from 'primevue/select'
 import { Search } from 'lucide-vue-next'
 import { useFilters } from '../model/use-filters'
 import { CATEGORY_OPTIONS } from '../model/category-options'
 import { SORT_OPTIONS } from '../model/sort-options'
+import { useDebouncedCallback } from '@/shared/lib/use-debounced-callback'
 import { styles } from './ProductFiltersPanel.styles'
 
 const SEARCH_DEBOUNCE_MS = 300
@@ -12,15 +13,8 @@ const SEARCH_DEBOUNCE_MS = 300
 const { filters, setSearch, setCategory, setSort } = useFilters()
 
 const localSearch = ref(filters.search)
-let searchTimer: ReturnType<typeof setTimeout> | null = null
-watch(localSearch, (value) => {
-  if (searchTimer) clearTimeout(searchTimer)
-  searchTimer = setTimeout(() => setSearch(value), SEARCH_DEBOUNCE_MS)
-})
-
-onUnmounted(() => {
-  if (searchTimer) clearTimeout(searchTimer)
-})
+const debouncedSetSearch = useDebouncedCallback(setSearch, SEARCH_DEBOUNCE_MS)
+watch(localSearch, (value) => debouncedSetSearch(value))
 </script>
 
 <template>

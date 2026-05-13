@@ -38,6 +38,7 @@ All layers expose a public API via `index.ts` — except `pages/`, where each sl
 - **`shared/api/http.ts`** — single axios instance, `baseURL: '/api'`, request interceptor injects `X-Session-Id` on every call.
 - **Data hooks** (`entities/product/model/`): `useProducts(filters?)` and `useProduct(id)`. Both use `AbortController` to cancel in-flight requests on input change / unmount. Errors are normalised to `'not_found' | 'unknown' | null` so the UI can branch cleanly.
 - **Cart store** (`entities/cart/model/cart-store.ts`) mirrors the server. Every action (`load`, `addItem`, `updateQuantity`, `removeItem`, `clear`) `await`s the backend and replaces local state with the response — no optimistic updates. `App.vue` calls `cart.load()` in `onMounted` to hydrate the header badge after refresh.
+- **Debounced search** — `shared/lib/use-debounced-callback.ts` wraps any callback with a fake-timer-friendly delay. Auto-cleans the pending timer on `effectScope` dispose, so the filter input doesn't leak timers across route changes.
 
 ## Quick start
 
@@ -85,6 +86,21 @@ The nginx config handles:
 | `npm run test:unit` | Run unit tests with Vitest                   |
 | `npm run lint`      | Run oxlint + eslint with autofix             |
 | `npm run format`    | Format `src/` with Prettier                  |
+
+## Tests
+
+Vitest + `@vue/test-utils` + `happy-dom`. Specs live next to the unit they
+cover (`*.spec.ts`):
+
+- **`shared/lib/use-debounced-callback.spec.ts`** — fake timers verify the
+  delay, coalescing of rapid calls, and `effectScope.stop()` cancelling
+  pending invocations (auto-cleanup contract).
+- **`entities/product/ui/ProductCard.spec.ts`** — props rendering, formatted
+  price/category, `RouterLink` target via `RouterLinkStub`.
+
+```bash
+npm run test:unit -- --run
+```
 
 ## Implementation notes
 
