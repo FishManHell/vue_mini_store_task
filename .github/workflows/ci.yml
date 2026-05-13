@@ -68,3 +68,6 @@ jobs:
 
       - name: Import smoke test
         run: uv run python -c "from app.main import app; print(app.title)"
+
+      - name: Pytest
+        run: uv run pytest

@@ -65,9 +65,10 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-Lint and format:
+Tests, lint and format:
 
 ```bash
+uv run pytest
 uv run ruff check .
 uv run ruff format .
 ```
@@ -265,6 +266,11 @@ FastAPI generates OpenAPI + Swagger UI automatically:
   carts. Products removed from the catalog are silently skipped (no 500).
 - **Sliding TTL.** Every write to a cart key resets the TTL to
   `CART_TTL_SECONDS`. Active users keep their carts; abandoned sessions expire.
+- **Cart mutations are not atomic.** `add_item` / `update_quantity` /
+  `remove_item` do a `read → modify → write` against Redis without
+  `WATCH`/`MULTI`. Acceptable for a single-browser-tab session (one in-flight
+  request at a time); a production deployment with concurrent writes per
+  session would need a Lua script or optimistic locking.
 - **Layered isolation.** Routers know about HTTP and Pydantic models;
   services know about domain logic and raise domain exceptions
   (`ProductNotFoundError`, `CartItemNotFoundError`); repositories know about
