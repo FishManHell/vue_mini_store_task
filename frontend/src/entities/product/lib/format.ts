@@ -1,4 +1,4 @@
-import type {Category} from "@/shared/constants/categories";
+import type { Category } from '@/shared/constants/categories'
 
 const CATEGORY_LABELS: Record<Category, string> = {
   ebook: 'E-book',

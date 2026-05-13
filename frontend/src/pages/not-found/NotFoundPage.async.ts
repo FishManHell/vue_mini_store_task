@@ -1,1 +1,1 @@
-export const NotFoundPageAsync = () => import('./NotFoundPage.vue');
+export const NotFoundPageAsync = () => import('./NotFoundPage.vue')

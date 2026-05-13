@@ -1,1 +1,1 @@
-export const ProductDetailsPageAsync = () => import('./ProductDetailsPage.vue');
+export const ProductDetailsPageAsync = () => import('./ProductDetailsPage.vue')

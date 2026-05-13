@@ -38,11 +38,7 @@ defineEmits<{
         <h1 :class="styles.name">{{ props.product.name }}</h1>
         <span :class="styles.price">{{ formatPrice(props.product.price) }}</span>
         <p :class="styles.short">{{ props.product.shortDescription }}</p>
-        <button
-          type="button"
-          :class="styles.addToCart"
-          @click="$emit('addToCart', props.product)"
-        >
+        <button type="button" :class="styles.addToCart" @click="$emit('addToCart', props.product)">
           <ShoppingCart :size="18" aria-hidden="true" />
           Add to Cart
         </button>

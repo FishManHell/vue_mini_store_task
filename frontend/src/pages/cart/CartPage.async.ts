@@ -1,1 +1,1 @@
-export const CartPageAsync = () => import('./CartPage.vue');
+export const CartPageAsync = () => import('./CartPage.vue')

@@ -20,9 +20,12 @@ defineEmits<{
 }>()
 
 const isInitialLoad = computed(() => props.isLoading && props.products === null)
-const isError = computed(() => !props.isLoading && props.error !== null && props.error !== undefined)
+const isError = computed(
+  () => !props.isLoading && props.error !== null && props.error !== undefined,
+)
 const isEmpty = computed(
-  () => !props.isLoading && !isError.value && props.products !== null && props.products.length === 0,
+  () =>
+    !props.isLoading && !isError.value && props.products !== null && props.products.length === 0,
 )
 const isReloading = computed(
   () => props.isLoading && props.products !== null && props.products.length > 0,
@@ -39,11 +42,7 @@ const isReloading = computed(
       <span>Updating…</span>
     </div>
     <div :class="[styles.grid, isReloading && styles.gridDimmed]">
-      <ProductCard
-        v-for="product in props.products ?? []"
-        :key="product.id"
-        :product="product"
-      />
+      <ProductCard v-for="product in props.products ?? []" :key="product.id" :product="product" />
     </div>
   </div>
 </template>

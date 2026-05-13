@@ -14,17 +14,11 @@ const { totalCount: cartCount } = storeToRefs(useCartStore())
 <template>
   <header :class="styles.header">
     <div :class="styles.container">
-      <RouterLink :to="RoutePaths[AppRoute.PRODUCTS]" :class="styles.logo">
-        Mini Store
-      </RouterLink>
+      <RouterLink :to="RoutePaths[AppRoute.PRODUCTS]" :class="styles.logo"> Mini Store </RouterLink>
 
       <nav :class="styles.nav">
         <ThemeToggle />
-        <RouterLink
-          :to="RoutePaths[AppRoute.CART]"
-          aria-label="View cart"
-          :class="styles.cartLink"
-        >
+        <RouterLink :to="RoutePaths[AppRoute.CART]" aria-label="View cart" :class="styles.cartLink">
           <ShoppingCart :size="18" />
           <Badge
             v-if="cartCount > 0"

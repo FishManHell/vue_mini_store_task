@@ -1,4 +1,4 @@
-import type {Category} from "@/shared/constants/categories";
+import type { Category } from '@/shared/constants/categories'
 
 export interface ProductBase {
   id: string

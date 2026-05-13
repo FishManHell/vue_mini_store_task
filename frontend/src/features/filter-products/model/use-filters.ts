@@ -1,10 +1,6 @@
 import { reactive } from 'vue'
-import {
-  SORT_ORDER,
-  type ProductFilters,
-  type SortOrder,
-} from '@/entities/product'
-import type {Category} from "@/shared/constants/categories";
+import { SORT_ORDER, type ProductFilters, type SortOrder } from '@/entities/product'
+import type { Category } from '@/shared/constants/categories'
 
 const filters = reactive<ProductFilters>({
   search: '',

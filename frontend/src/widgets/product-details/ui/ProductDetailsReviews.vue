@@ -43,10 +43,7 @@ function formatDate(value: string): string {
       <li v-for="review in sortedReviews" :key="review.id" :class="styles.item">
         <div :class="styles.itemHeader">
           <span :class="styles.author">{{ review.author }}</span>
-          <span
-            :class="styles.rating"
-            :aria-label="`Rating: ${review.rating} out of 5`"
-          >
+          <span :class="styles.rating" :aria-label="`Rating: ${review.rating} out of 5`">
             <Star
               v-for="i in 5"
               :key="i"
