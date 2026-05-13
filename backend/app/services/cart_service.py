@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from app.models import MAX_QUANTITY_PER_ITEM, CartItem, CartResponse
-from app.repositories import CartRepository
+from app.repositories import CartRepository, StoredCartItem
 from app.services.product_service import ProductService
 
 
@@ -41,9 +41,9 @@ class CartService:
         items = await self._cart_repository.get(session_id)
         existing = self._find(items, product_id)
         if existing is not None:
-            existing["quantity"] = min(existing["quantity"] + quantity, MAX_QUANTITY_PER_ITEM)
+            existing.quantity = min(existing.quantity + quantity, MAX_QUANTITY_PER_ITEM)
         else:
-            items.append({"productId": product_id, "quantity": quantity})
+            items.append(StoredCartItem(product_id=product_id, quantity=quantity))
 
         await self._cart_repository.set(session_id, items)
         return self._build_response(items)
@@ -56,13 +56,13 @@ class CartService:
         if existing is None:
             raise CartItemNotFoundError(product_id)
 
-        existing["quantity"] = quantity
+        existing.quantity = quantity
         await self._cart_repository.set(session_id, items)
         return self._build_response(items)
 
     async def remove_item(self, session_id: str, product_id: str) -> CartResponse:
         items = await self._cart_repository.get(session_id)
-        filtered = [i for i in items if i["productId"] != product_id]
+        filtered = [i for i in items if i.product_id != product_id]
         await self._cart_repository.set(session_id, filtered)
         return self._build_response(filtered)
 
@@ -70,21 +70,21 @@ class CartService:
         await self._cart_repository.delete(session_id)
 
     @staticmethod
-    def _find(items: list[dict], product_id: str) -> dict | None:
-        return next((i for i in items if i["productId"] == product_id), None)
+    def _find(items: list[StoredCartItem], product_id: str) -> StoredCartItem | None:
+        return next((i for i in items if i.product_id == product_id), None)
 
-    def _build_response(self, raw_items: list[dict]) -> CartResponse:
+    def _build_response(self, raw_items: list[StoredCartItem]) -> CartResponse:
         cart_items: list[CartItem] = []
         total_count = 0
         total_price = Decimal("0.00")
 
         for raw in raw_items:
-            product = self._product_service.get_product(raw["productId"])
+            product = self._product_service.get_product(raw.product_id)
             if product is None:
                 # Product was removed from the catalog after it was added
                 # to the cart. Skip silently rather than 500 the response.
                 continue
-            quantity = raw["quantity"]
+            quantity = raw.quantity
             line_total = (product.price * quantity).quantize(Decimal("0.01"))
             cart_items.append(
                 CartItem(

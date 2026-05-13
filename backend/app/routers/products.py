@@ -1,9 +1,11 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 
 from app.models import Category, ProductDetails, ProductListItem, SortOrder
 from app.services import ProductService
+
+MAX_SEARCH_LENGTH = 100
 
 router = APIRouter(prefix="/products", tags=["products"])
 
@@ -22,7 +24,7 @@ ProductServiceDep = Annotated[ProductService, Depends(get_product_service)]
 )
 async def list_products(
     service: ProductServiceDep,
-    search: str | None = None,
+    search: Annotated[str | None, Query(max_length=MAX_SEARCH_LENGTH)] = None,
     category: Category | None = None,
     sort: SortOrder = SortOrder.NAME_ASC,
 ) -> list[ProductDetails]:

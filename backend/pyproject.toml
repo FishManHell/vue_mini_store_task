@@ -1,6 +1,6 @@
 [project]
 name = "vue-mini-store-backend"
-version = "0.1.6"
+version = "0.1.8"
 description = "FastAPI backend for Vue Mini Store"
 requires-python = ">=3.12"
 dependencies = [
