@@ -54,7 +54,42 @@ curl http://localhost:8000/health
 
 Stop with `docker compose down`. Add `-v` to drop the Redis volume.
 
-### Option B — Local with `uv`
+### Option B — Backend Docker image standalone
+
+Use this to verify the backend Dockerfile independently from Docker Compose.
+Redis is still required because the cart is Redis-backed.
+
+Start Redis:
+
+```bash
+docker run --rm \
+  --name vue-mini-store-redis \
+  -p 6379:6379 \
+  redis:7-alpine
+```
+
+Build and run the backend image:
+
+```bash
+cd backend
+docker build -t vue-mini-store-backend .
+docker run --rm \
+  --name vue-mini-store-backend \
+  -p 8000:8000 \
+  -e REDIS_URL=redis://host.docker.internal:6379/0 \
+  -e CORS_ORIGINS=http://localhost:5173,http://localhost:8080 \
+  vue-mini-store-backend
+```
+
+Check:
+
+```bash
+curl http://localhost:8000/health
+```
+
+Swagger UI: <http://localhost:8000/docs>
+
+### Option C — Local with `uv`
 
 Requires a running Redis on `localhost:6379` (e.g. `docker compose up -d redis`).
 

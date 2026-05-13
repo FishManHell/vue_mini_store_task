@@ -63,11 +63,23 @@ Production-grade multi-stage build → nginx serving the static SPA. Build conte
 ```sh
 # from repo root
 docker build -t vue-store-frontend ./frontend
-docker run --rm -p 8080:80 vue-store-frontend
+docker run --rm \
+  --name vue-store-frontend \
+  -p 8080:80 \
+  --add-host=backend:host-gateway \
+  vue-store-frontend
 # open http://localhost:8080
 ```
 
-In Docker the nginx config (`nginx.conf`) proxies `/api/*` to `backend:8000` (resolved by the Compose network), so use `docker compose up` from the repo root if you want the full stack — see the root README.
+In Docker the nginx config (`nginx.conf`) proxies `/api/*` to `backend:8000`.
+Inside Docker Compose that name is resolved by the Compose network. When running
+the frontend image standalone, `--add-host=backend:host-gateway` points that
+name at the host machine, so the proxy reaches a backend running on
+`localhost:8000`.
+
+If no backend is running, the SPA still loads and `/api/*` requests return
+`502 Bad Gateway`. This is useful for checking the frontend network error state.
+Use `docker compose up` from the repo root for the full stack.
 
 The nginx config handles:
 - SPA history-mode fallback (`try_files $uri $uri/ /index.html`)

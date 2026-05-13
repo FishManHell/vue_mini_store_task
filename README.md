@@ -60,10 +60,14 @@ GitHub Actions runs on every push / PR to `main`
 
 Each service has its own README with stack details, layout, scripts, and (for the backend) a full API reference:
 
-- [`frontend/README.md`](./frontend/README.md) — Vite dev server, FSD layout, HTTP layer, cart store
-- [`backend/README.md`](./backend/README.md) — endpoints, configuration, layered architecture, Docker image notes
+- [`frontend/README.md`](./frontend/README.md) — Vite dev server, standalone Docker image, FSD layout, HTTP layer, cart store
+- [`backend/README.md`](./backend/README.md) — standalone Docker image, Swagger/API checks, configuration, layered architecture
 
-Both are designed to run standalone as well — see each README for the local (non-Docker) setup.
+Use `docker compose up --build` when you want the full application. If you want
+to verify a service independently, use the service README: the backend README
+shows Redis + backend-only Docker commands, and the frontend README shows how to
+start the SPA image standalone, including the `502` network-error scenario when
+the backend is unavailable.
 
 ## Repository layout
 
