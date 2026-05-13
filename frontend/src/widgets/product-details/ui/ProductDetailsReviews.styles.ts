@@ -14,4 +14,4 @@ export const styles = {
   starFilled: 'text-accent',
   starEmpty: 'text-border',
   comment: 'text-sm leading-relaxed text-secondary',
-} as const
+}

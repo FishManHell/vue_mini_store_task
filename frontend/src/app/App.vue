@@ -5,7 +5,6 @@ import Toast from 'primevue/toast'
 import ConfirmDialog from 'primevue/confirmdialog'
 import { AppHeader } from '@/widgets/app-header'
 import { useCartStore } from '@/entities/cart'
-import { styles } from './App.styles'
 
 const cart = useCartStore()
 
@@ -16,7 +15,7 @@ onMounted(() => {
 
 <template>
   <AppHeader />
-  <main :class="styles.main">
+  <main :class="'mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-10'">
     <RouterView />
   </main>
   <Toast />

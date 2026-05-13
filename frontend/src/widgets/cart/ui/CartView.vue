@@ -7,7 +7,6 @@ import { formatPrice } from '@/entities/product'
 import CartItemsList from './CartItemsList.vue'
 import CartSummary from './CartSummary.vue'
 import CartEmpty from './CartEmpty.vue'
-import { styles } from './CartView.styles'
 
 const cart = useCartStore()
 const { items, isEmpty, totalCount, totalPrice } = storeToRefs(cart)
@@ -71,7 +70,7 @@ function handleClear() {
 
 <template>
   <CartEmpty v-if="isEmpty" />
-  <div v-else :class="styles.layout">
+  <div v-else :class="'grid gap-6 lg:grid-cols-[1fr_360px] lg:items-start'">
     <CartItemsList :items="items" />
     <CartSummary
       :item-count="totalCount"

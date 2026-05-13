@@ -5,4 +5,4 @@ export const styles = {
   searchInput:
     'w-full rounded-lg border border-border bg-surface py-2 pl-10 pr-3 text-sm text-primary placeholder:text-muted focus-visible:border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent',
   select: 'md:w-56',
-} as const
+}

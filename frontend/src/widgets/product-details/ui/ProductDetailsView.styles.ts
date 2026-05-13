@@ -16,4 +16,4 @@ export const styles = {
   section: 'flex flex-col gap-3',
   sectionTitle: 'text-lg font-semibold text-primary',
   longDescription: 'whitespace-pre-line text-base leading-relaxed text-secondary',
-} as const
+}

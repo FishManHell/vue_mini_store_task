@@ -10,4 +10,4 @@ export const styles = {
   descLine2: 'h-3 w-5/6 animate-pulse rounded bg-border',
   footer: 'mt-2 flex',
   price: 'h-5 w-20 animate-pulse rounded bg-border',
-} as const
+}

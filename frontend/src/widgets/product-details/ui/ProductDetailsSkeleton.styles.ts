@@ -17,4 +17,4 @@ export const styles = {
   reviewHeader: 'flex items-center justify-between',
   reviewAuthor: 'h-4 w-24 rounded bg-border',
   reviewRating: 'h-4 w-20 rounded bg-border',
-} as const
+}

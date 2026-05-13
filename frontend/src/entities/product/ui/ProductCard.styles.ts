@@ -12,4 +12,4 @@ export const styles = {
   price: 'text-lg font-bold text-primary',
   arrow:
     'text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent',
-} as const
+}

@@ -18,4 +18,4 @@ export const styles = {
   lineTotal: 'min-w-20 text-right text-base font-bold text-primary tabular-nums',
   remove:
     'flex h-8 w-8 items-center justify-center rounded-xl text-muted transition-colors hover:bg-error/10 hover:text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error',
-} as const
+}

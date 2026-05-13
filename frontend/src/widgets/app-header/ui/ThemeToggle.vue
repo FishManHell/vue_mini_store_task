@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Sun, Moon } from 'lucide-vue-next'
 import { useTheme } from '@/shared/lib/theme'
-import { styles } from './ThemeToggle.styles'
 
 const { isDark, toggle } = useTheme()
 </script>
@@ -11,7 +10,18 @@ const { isDark, toggle } = useTheme()
     type="button"
     @click="toggle"
     :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
-    :class="styles.button"
+    :class="'inline-flex ' +
+     'h-10 w-10 ' +
+      'items-center ' +
+       'justify-center ' +
+        'rounded-lg ' +
+         'text-secondary ' +
+          'transition-colors ' +
+           'duration-200 ' +
+            'hover:bg-surface-hover ' +
+             'hover:text-primary ' +
+              'focus-visible:outline-none ' +
+               'focus-visible:ring-2 focus-visible:ring-accent'"
   >
     <Sun v-if="isDark" :size="18" />
     <Moon v-else :size="18" />

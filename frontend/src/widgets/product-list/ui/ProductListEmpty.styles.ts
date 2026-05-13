@@ -4,4 +4,4 @@ export const styles = {
   icon: 'text-muted',
   title: 'text-lg font-semibold text-primary',
   description: 'max-w-sm text-sm text-secondary',
-} as const
+}

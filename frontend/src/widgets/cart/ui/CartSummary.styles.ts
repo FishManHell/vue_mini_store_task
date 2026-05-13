@@ -13,4 +13,4 @@ export const styles = {
     'mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
   clear:
     'inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-transparent px-4 py-2 text-sm font-medium text-secondary transition-colors hover:border-error/40 hover:text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error',
-} as const
+}
