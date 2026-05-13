@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from app.models import CartItem, CartResponse, MAX_QUANTITY_PER_ITEM
+from app.models import MAX_QUANTITY_PER_ITEM, CartItem, CartResponse
 from app.repositories import CartRepository
 from app.services.product_service import ProductService
 
@@ -34,18 +34,14 @@ class CartService:
         items = await self._cart_repository.get(session_id)
         return self._build_response(items)
 
-    async def add_item(
-        self, session_id: str, product_id: str, quantity: int
-    ) -> CartResponse:
+    async def add_item(self, session_id: str, product_id: str, quantity: int) -> CartResponse:
         if self._product_service.get_product(product_id) is None:
             raise ProductNotFoundError(product_id)
 
         items = await self._cart_repository.get(session_id)
         existing = self._find(items, product_id)
         if existing is not None:
-            existing["quantity"] = min(
-                existing["quantity"] + quantity, MAX_QUANTITY_PER_ITEM
-            )
+            existing["quantity"] = min(existing["quantity"] + quantity, MAX_QUANTITY_PER_ITEM)
         else:
             items.append({"productId": product_id, "quantity": quantity})
 

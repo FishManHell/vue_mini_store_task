@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 
 from app.core.deps import get_cart_service, session_id
@@ -10,6 +12,9 @@ from app.services import (
 
 router = APIRouter(prefix="/cart", tags=["cart"])
 
+SessionId = Annotated[str, Depends(session_id)]
+CartServiceDep = Annotated[CartService, Depends(get_cart_service)]
+
 
 @router.get(
     "",
@@ -17,8 +22,8 @@ router = APIRouter(prefix="/cart", tags=["cart"])
     response_model_by_alias=True,
 )
 async def get_cart(
-    sid: str = Depends(session_id),
-    service: CartService = Depends(get_cart_service),
+    sid: SessionId,
+    service: CartServiceDep,
 ) -> CartResponse:
     return await service.get_cart(sid)
 
@@ -31,8 +36,8 @@ async def get_cart(
 )
 async def add_item(
     body: AddToCartRequest,
-    sid: str = Depends(session_id),
-    service: CartService = Depends(get_cart_service),
+    sid: SessionId,
+    service: CartServiceDep,
 ) -> CartResponse:
     try:
         return await service.add_item(sid, body.product_id, body.quantity)
@@ -51,8 +56,8 @@ async def add_item(
 async def update_item(
     product_id: str,
     body: UpdateQuantityRequest,
-    sid: str = Depends(session_id),
-    service: CartService = Depends(get_cart_service),
+    sid: SessionId,
+    service: CartServiceDep,
 ) -> CartResponse:
     try:
         return await service.update_quantity(sid, product_id, body.quantity)
@@ -70,16 +75,16 @@ async def update_item(
 )
 async def remove_item(
     product_id: str,
-    sid: str = Depends(session_id),
-    service: CartService = Depends(get_cart_service),
+    sid: SessionId,
+    service: CartServiceDep,
 ) -> CartResponse:
     return await service.remove_item(sid, product_id)
 
 
 @router.delete("", status_code=status.HTTP_204_NO_CONTENT, response_class=Response)
 async def clear_cart(
-    sid: str = Depends(session_id),
-    service: CartService = Depends(get_cart_service),
+    sid: SessionId,
+    service: CartServiceDep,
 ) -> Response:
     await service.clear(sid)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
