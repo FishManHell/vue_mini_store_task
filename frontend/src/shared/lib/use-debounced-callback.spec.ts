@@ -12,7 +12,7 @@ describe('useDebouncedCallback', () => {
   })
 
   it('delays invocation by the given timeout', () => {
-    const fn = vi.fn()
+    const fn = vi.fn<(value: string) => void>()
     const debounced = useDebouncedCallback(fn, 200)
 
     debounced('a')
@@ -24,7 +24,7 @@ describe('useDebouncedCallback', () => {
   })
 
   it('coalesces rapid calls into a single invocation with the latest arguments', () => {
-    const fn = vi.fn()
+    const fn = vi.fn<(value: string) => void>()
     const debounced = useDebouncedCallback(fn, 100)
 
     debounced('first')
@@ -38,7 +38,7 @@ describe('useDebouncedCallback', () => {
   })
 
   it('cancels the pending invocation when the effect scope is disposed', () => {
-    const fn = vi.fn()
+    const fn = vi.fn<(value: string) => void>()
     const scope = effectScope()
     scope.run(() => {
       const debounced = useDebouncedCallback(fn, 100)
