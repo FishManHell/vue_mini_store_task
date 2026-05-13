@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
-import Aura from '@primeuix/themes/aura';
+import Aura from '@primeuix/themes/aura'
 import ToastService from 'primevue/toastservice'
 import ConfirmationService from 'primevue/confirmationservice'
-import PrimeVue from 'primevue/config';
+import PrimeVue from 'primevue/config'
 import { pinia } from '@/app/pinia'
 import App from './app/App.vue'
-import {router} from "@/app/router";
+import {router} from "@/app/router"
 import { applyInitialTheme } from '@/shared/lib/theme'
 import '@/app/styles/main.css'
 

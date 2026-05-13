@@ -79,6 +79,10 @@ export const useCartStore = defineStore('cart', () => {
     })
   }
 
+  async function checkout() {
+    await clear()
+  }
+
   return {
     items,
     totalCount,
@@ -92,5 +96,6 @@ export const useCartStore = defineStore('cart', () => {
     updateQuantity,
     removeItem,
     clear,
+    checkout
   }
 })

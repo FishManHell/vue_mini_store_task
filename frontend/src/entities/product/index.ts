@@ -1,5 +1,4 @@
 export type {
-  Category,
   ProductBase,
   ProductListItem,
   ProductDetails,
@@ -7,7 +6,7 @@ export type {
   SortOrder,
   ProductFilters,
 } from './model/types'
-export { CATEGORY, SORT_ORDER } from './model/types'
+export { SORT_ORDER } from './model/types'
 export { useProducts } from './model/use-products'
 export { useProduct, type ProductError } from './model/use-product'
 export { formatCategory, formatPrice } from './lib/format'

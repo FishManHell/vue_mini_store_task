@@ -1,4 +1,4 @@
-import { CATEGORY, type Category } from '@/entities/product'
+import { CATEGORY, type Category } from '@/shared/constants/categories'
 import type { SelectOption } from '@/shared/lib/types/select-option'
 
 export const CATEGORY_OPTIONS: SelectOption<Category | null>[] = [

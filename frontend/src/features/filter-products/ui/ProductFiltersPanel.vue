@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import {onUnmounted, ref, watch} from 'vue'
 import Select from 'primevue/select'
 import { Search } from 'lucide-vue-next'
 import { useFilters } from '../model/use-filters'
@@ -16,6 +16,10 @@ let searchTimer: ReturnType<typeof setTimeout> | null = null
 watch(localSearch, (value) => {
   if (searchTimer) clearTimeout(searchTimer)
   searchTimer = setTimeout(() => setSearch(value), SEARCH_DEBOUNCE_MS)
+})
+
+onUnmounted(() => {
+  if (searchTimer) clearTimeout(searchTimer)
 })
 </script>
 

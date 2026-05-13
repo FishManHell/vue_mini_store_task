@@ -9,7 +9,7 @@ Talks to the FastAPI backend over `/api/*`. See [`backend/README.md`](../backend
 - **Vue 3** Composition API + `<script setup>`
 - **TypeScript**, **Vite 8**
 - **Pinia** (setup-style stores)
-- **Vue Router 4** (history mode, typed routes)
+- **Vue Router 5** (history mode, typed route constants)
 - **Tailwind v3** + design tokens
 - **PrimeVue** (Aura preset) — Toast, ConfirmDialog, Select, Badge
 - **lucide-vue-next** icons, **Inter** variable font
@@ -36,7 +36,7 @@ All layers expose a public API via `index.ts` — except `pages/`, where each sl
 
 - **`shared/api/session.ts`** — `getSessionId()` lazily generates a UUID via `crypto.randomUUID()` on first call, persists it in `localStorage` under `session_id`, and caches it in memory. Cart identity for the lifetime of the browser.
 - **`shared/api/http.ts`** — single axios instance, `baseURL: '/api'`, request interceptor injects `X-Session-Id` on every call.
-- **Data hooks** (`entities/product/lib/`): `useProducts(filters?)` and `useProduct(id)`. Both use `AbortController` to cancel in-flight requests on input change / unmount. Errors are normalised to `'not_found' | 'unknown' | null` so the UI can branch cleanly.
+- **Data hooks** (`entities/product/model/`): `useProducts(filters?)` and `useProduct(id)`. Both use `AbortController` to cancel in-flight requests on input change / unmount. Errors are normalised to `'not_found' | 'unknown' | null` so the UI can branch cleanly.
 - **Cart store** (`entities/cart/model/cart-store.ts`) mirrors the server. Every action (`load`, `addItem`, `updateQuantity`, `removeItem`, `clear`) `await`s the backend and replaces local state with the response — no optimistic updates. `App.vue` calls `cart.load()` in `onMounted` to hydrate the header badge after refresh.
 
 ## Quick start

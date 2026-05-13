@@ -1,6 +1,12 @@
-import type { ProductListItem } from '@/entities/product'
+import type {Category} from "@/shared/constants/categories";
 
-export interface CartItem extends ProductListItem {
+export interface CartItem {
+  id: string
+  name: string
+  price: string
+  thumbnailUrl: string
+  shortDescription: string
+  category: Category
   quantity: number
   lineTotal: string
 }

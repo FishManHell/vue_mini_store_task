@@ -96,6 +96,7 @@ docker-compose.override.yaml
 
 # --- Claude Code skill (kept local, not deployed) ---
 .claude/
+.agents/
 
 # --- Misc ---
 *.local

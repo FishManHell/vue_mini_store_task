@@ -30,7 +30,7 @@ function handleCheckout() {
     acceptLabel: 'Place order',
     rejectLabel: 'Cancel',
     accept: async () => {
-      await cart.clear()
+      await cart.checkout()
       if (cart.error) {
         showError('Could not place order')
         return
