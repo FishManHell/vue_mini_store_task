@@ -100,6 +100,16 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
+If you prefer standard `pip`, use the committed `requirements.txt`:
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
 Tests, lint and format:
 
 ```bash
