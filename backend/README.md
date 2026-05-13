@@ -65,10 +65,9 @@ uv sync
 uv run uvicorn app.main:app --reload
 ```
 
-Tests and lint:
+Lint and format:
 
 ```bash
-uv run pytest                 # (no tests yet — coming in step 7)
 uv run ruff check .
 uv run ruff format .
 ```
@@ -281,7 +280,4 @@ FastAPI generates OpenAPI + Swagger UI automatically:
 
 ## Roadmap
 
-- Frontend integration (axios + `X-Session-Id` interceptor)
-- At least one unit test (`pytest` on `product_service` filter/sort, or a
-  service-level cart flow)
 - Optional: hosting (Fly.io / Railway)
