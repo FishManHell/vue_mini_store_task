@@ -1,29 +1,32 @@
-import { reactive } from 'vue'
-import { SORT_ORDER, type ProductFilters, type SortOrder } from '@/entities/product'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import type { ProductFilters, SortOrder } from '@/entities/product'
 import type { Category } from '@/shared/constants/categories'
-
-const filters = reactive<ProductFilters>({
-  search: '',
-  category: null,
-  sort: SORT_ORDER.NAME_ASC,
-})
+import { DEFAULT_FILTERS, buildQuery, parseFilters } from './filters-codec'
 
 export function useFilters() {
+  const route = useRoute()
+  const router = useRouter()
+
+  const filters = computed<ProductFilters>(() => parseFilters(route.query))
+
+  function patch(next: Partial<ProductFilters>): void {
+    router.replace({ query: buildQuery({ ...filters.value, ...next }) })
+  }
+
   return {
     filters,
     setSearch(value: string): void {
-      filters.search = value
+      patch({ search: value })
     },
     setCategory(value: Category | null): void {
-      filters.category = value
+      patch({ category: value })
     },
     setSort(value: SortOrder): void {
-      filters.sort = value
+      patch({ sort: value })
     },
     reset(): void {
-      filters.search = ''
-      filters.category = null
-      filters.sort = SORT_ORDER.NAME_ASC
+      router.replace({ query: buildQuery(DEFAULT_FILTERS) })
     },
   }
 }
